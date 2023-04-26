@@ -1,6 +1,6 @@
 import telebot
 from telebot import types
-import main
+import server
 from config import group_names, domains_names, technologies_names, using_method_names
 
 bot = telebot.TeleBot('6065747915:AAGWxo4frFKct-CXNXIA3Iqp0s5pj5_pkB4')
@@ -57,7 +57,7 @@ def bot_message(message):
         # выдача кнопок с функциональными группами
         if (message.text == 'Начать работу' or message.text == "Начать!" or message.text == "◀️ Назад к выбору функциональной группы" or message.text == 'Начать сначала'):
             markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-            items = main.get_funcGroups()
+            items = server.get_funcGroups()
             for item in items:
                 if (item['group_name_ru'] != 'Логистика'):
                     btn = types.KeyboardButton(item['group_name_ru'])
@@ -71,7 +71,7 @@ def bot_message(message):
             if message.text == group['name'] or message.text == '◀️ Назад к выбору домена':
                 group_id = group['id']
                 identifiers['group'] = group_id
-                domens = main.get_domains(group_id)
+                domens = server.get_domains(group_id)
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
                 for domain in domens:
                     btn = types.KeyboardButton(domain['domain'])
@@ -93,7 +93,7 @@ def bot_message(message):
                 if techno_flag == 0:
                     domen_id = dom['id']
                     identifiers['domen'] = domen_id
-                technos = main.selectTechnos(identifiers['domen'], identifiers['group'])
+                technos = server.selectTechnos(identifiers['domen'], identifiers['group'])
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
                 for techno in technos:
                     btn = types.KeyboardButton(techno['name'])
@@ -115,7 +115,7 @@ def bot_message(message):
                 if method_flag == 0:
                     technology_id = technology['id']
                     identifiers['technology'] = technology_id
-                methods = main.selectMethods(identifiers['technology'], identifiers['domen'], identifiers['group'])
+                methods = server.selectMethods(identifiers['technology'], identifiers['domen'], identifiers['group'])
                 print(methods)
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
                 for method in methods:
@@ -138,7 +138,7 @@ def bot_message(message):
                 if scenaries_flag == 0:
                     method_id = using_method['id']
                     identifiers['meth'] = method_id
-                scenarios = main.selectScenarios(identifiers['meth'], identifiers['technology'], identifiers['domen'],
+                scenarios = server.selectScenarios(identifiers['meth'], identifiers['technology'], identifiers['domen'],
                                                  identifiers['group'])
                 markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
                 for scenario in scenarios:
@@ -153,7 +153,7 @@ def bot_message(message):
                 else: 
                     bot.send_message(message.chat.id,'', reply_markup=markup)
 
-        scNames = main.selectScenariosNames()
+        scNames = server.selectScenariosNames()
 
         # выдача всей инфы
 
@@ -161,7 +161,7 @@ def bot_message(message):
             if message.text == scenary['scenario_name_ru']:
                 scen_id = scenary['id']
                 identifiers['scen'] = scen_id
-                info = main.getAllInfo(identifiers['scen'])
+                info = server.getAllInfo(identifiers['scen'])
                 print(info)
 
                 for block in info:
