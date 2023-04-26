@@ -16,10 +16,10 @@ def get_currentId(current_id):
 try:
     connection = pymysql.connect(
         host=host,
-        port=3306,
-        database='it_time',
+        port=6352,
+        database='railway',
         user='root',
-        password='1111',
+        password='xapSCia9a3t7HAZOMNrF',
         cursorclass=pymysql.cursors.DictCursor
     )
     print('Connected was successful')

@@ -1,4 +1,4 @@
-host = "localhost"
+host = "containers-us-west-80.railway.app"
 
 group_names = [{'name': 'Добыча на шельфе', 'id': 1},
                {'name': 'Бурение', 'id': 2},
