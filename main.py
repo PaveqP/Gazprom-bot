@@ -24,8 +24,6 @@ try:
     )
     print('Connected was successful')
     print('-/-' * 40)
-    print('bot was runned')
-    print('-/-' * 40)
 
     # получение функциональных групп
     def get_funcGroups():

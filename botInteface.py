@@ -8,6 +8,7 @@ bot = telebot.TeleBot('6065747915:AAGWxo4frFKct-CXNXIA3Iqp0s5pj5_pkB4')
 identifiers = {}
 back_action = []
 
+print("run bot")
 
 @bot.message_handler(commands=['start'])
 def start(message):
